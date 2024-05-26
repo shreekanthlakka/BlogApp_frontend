@@ -19,17 +19,19 @@ const Main = styled.main`
     /* align-items: center; */
     height: auto;
     background-color: #f1edec;
+    padding-bottom: 8vh;
 `;
 
 function AppLayout() {
-    const { loggedInUser, userAccount, isAuthenticated } = useAuth();
+    const { loggedInUser, userAccount, isAuthenticated, getProfile } =
+        useAuth();
     const { getAllPosts, getMyPosts } = usePost();
     const [isFetched, setIsFetched] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
         (async () => {
             setIsFetched(true);
-            Promise.all([getAllPosts(), getMyPosts()])
+            Promise.all([getAllPosts(), getMyPosts(), getProfile()])
                 .then(() => setIsFetched(false))
                 .catch(() => setIsFetched(false));
         })();
@@ -42,11 +44,6 @@ function AppLayout() {
             </Box>
         );
     }
-    // useEffect(() => {
-    //     if (Object.keys(userAccount) === 0) {
-    //         navigate("/login");
-    //     }
-    // }, [userAccount]);
     return (
         <Container>
             <AppLayoutHeader />

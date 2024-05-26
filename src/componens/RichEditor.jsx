@@ -98,6 +98,7 @@ export function FormFields({
     content,
     setContent,
     selectedPost,
+    quillStyles,
 }) {
     const toolbarOptions = [
         ["bold", "italic", "underline", "strike"], // toggled buttons
@@ -145,6 +146,7 @@ export function FormFields({
                 />
             </div>
             <ReactQuill
+                styles={quillStyles}
                 modules={module}
                 theme="snow"
                 value={content}

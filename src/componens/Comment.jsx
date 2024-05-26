@@ -37,7 +37,7 @@ function Comment({ comment }) {
     const { userAccount } = useAuth();
     const { deleteCommentByPostId, isLoading, updateCommentByPostId } =
         useComment();
-    const isOwner = comment?.authorId._id === userAccount._id;
+    const isOwner = comment?.authorId?._id === userAccount?._id;
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState("");
 

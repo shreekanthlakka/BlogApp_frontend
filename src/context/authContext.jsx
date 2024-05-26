@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import {
     getCurrentLoggedInUser,
+    getProfileApi,
     loginApi,
     logoutApi,
+    updateProfileApi,
 } from "../services/userService";
 
 const authContext = createContext();
@@ -46,6 +48,10 @@ function authReducer(state, action) {
                 isLoading: false,
                 isLoggedIn: false,
             };
+        case "SET_PROFILE":
+            return { ...state, isLoading: false, profile: action.payload };
+        case "UPDATE_PROFILE":
+            return { ...state, isLoading: false, profile: action.payload };
         case "default":
             return state;
     }
@@ -59,8 +65,14 @@ function AuthContextProvider({ children }) {
             : initialState
     );
 
-    const { userAccount, isLoading, isLoggedIn, error, isAuthenticated } =
-        state;
+    const {
+        userAccount,
+        isLoading,
+        isLoggedIn,
+        error,
+        isAuthenticated,
+        profile,
+    } = state;
 
     useEffect(() => {
         localStorage.setItem("initState", JSON.stringify(state));
@@ -128,6 +140,44 @@ function AuthContextProvider({ children }) {
         }
     };
 
+    const getProfile = async () => {
+        let res;
+        try {
+            res = await getProfileApi();
+            if (!res.success) {
+                throw {
+                    status: res.status,
+                    message: res.message,
+                };
+            } else {
+                dispatch({ type: "SET_PROFILE", payload: res.data });
+            }
+            return res;
+        } catch (error) {
+            dispatch({ type: "ERROR", payload: error });
+            return res;
+        }
+    };
+
+    const updateProfile = async (updatedProfile) => {
+        let res;
+        try {
+            res = await updateProfileApi(updatedProfile);
+            if (!res.success) {
+                throw {
+                    status: res.status,
+                    message: res.message,
+                };
+            } else {
+                dispatch({ type: "UPDATE_PROFILE", payload: res.data });
+            }
+            return res;
+        } catch (error) {
+            dispatch({ type: "ERROR", payload: error });
+            return res;
+        }
+    };
+
     const value = {
         userAccount,
         isLoading,
@@ -137,6 +187,10 @@ function AuthContextProvider({ children }) {
         logout,
         loggedInUser,
         isAuthenticated,
+        getProfile,
+        updateProfile,
+        profile,
+        dispatch,
     };
 
     return (

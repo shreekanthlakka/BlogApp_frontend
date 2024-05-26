@@ -36,7 +36,7 @@ function Login() {
     const errors = {};
     const navigate = useNavigate();
 
-    const { login, isLoading, error, loggedInUser } = useAuth();
+    const { login, isLoading } = useAuth();
 
     function runValidations() {
         if (formData.email.trim().length === 0) {
@@ -62,7 +62,6 @@ function Login() {
             //api call
             const res = await login(formData);
             if (res?.success) {
-                // await loggedInUser();
                 navigate("/dashboard");
                 toast.success("loggedin sucessfully");
                 setFormData(initialState);
@@ -75,8 +74,6 @@ function Login() {
             setClientErrors(errors);
         }
     }
-
-    console.log("IN LOGIN COMP");
 
     return (
         <Form onSubmit={handleSubmit}>

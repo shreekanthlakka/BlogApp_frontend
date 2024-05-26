@@ -1,5 +1,5 @@
-// export const URI = "http://localhost:5000/api/v1";
-export const URI = "https://blogapp-backend-ko6y.onrender.com/api/v1";
+export const URI = "http://localhost:5000/api/v1";
+// export const URI = "https://blogapp-backend-ko6y.onrender.com/api/v1";
 
 const loginApi = async (formData) => {
     try {
@@ -21,20 +21,20 @@ const loginApi = async (formData) => {
 
 const registerApi = async (formData) => {
     try {
-        // const fd = new FormData();
-        // fd.append("username", formData.username);
-        // fd.append("email", formData.email);
-        // fd.append("password", formData.password);
-        // fd.append("profilePic", formData.profilePic);
+        const fd = new FormData();
+        fd.append("username", formData.username);
+        fd.append("email", formData.email);
+        fd.append("password", formData.password);
+        fd.append("profilePic", formData.profilePic);
 
         console.log("IN REGISTER API", formData);
         const res = await fetch(`${URI}/users/register`, {
             method: "POST",
             credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
+            // headers: {
+            //     "Content-Type": "application/json",
+            // },
+            body: fd,
         });
         const data = await res.json();
         return data;
@@ -75,11 +75,11 @@ const getCurrentLoggedInUser = async () => {
         return error.message;
     }
 };
-getCurrentLoggedInUser().then((res) => console.log(res));
+// getCurrentLoggedInUser().then((res) => console.log(res));
 
-const getProfile = async (user) => {
+const getProfileApi = async () => {
     try {
-        const res = await fetch(`${URI}/users/${user}/profile`, {
+        const res = await fetch(`${URI}/profile`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -96,9 +96,9 @@ const getProfile = async (user) => {
     }
 };
 
-const createProfile = async (user, formData) => {
+const createProfileApi = async (formData) => {
     try {
-        const res = await fetch(`${URI}/users/${user}/profile`, {
+        const res = await fetch(`${URI}/profile`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -119,9 +119,9 @@ const createProfile = async (user, formData) => {
     }
 };
 
-const updateProfile = async (user, updatedData) => {
+const updateProfileApi = async (updatedData) => {
     try {
-        const res = await fetch(`${URI}/users/${user}/profile`, {
+        const res = await fetch(`${URI}/profile`, {
             method: "PUT",
             credentials: "include",
             headers: {
@@ -147,8 +147,8 @@ export {
     loginApi,
     registerApi,
     logoutApi,
-    getProfile,
+    getProfileApi,
     getCurrentLoggedInUser,
-    createProfile,
-    updateProfile,
+    createProfileApi,
+    updateProfileApi,
 };

@@ -50,6 +50,7 @@ function Register() {
     const [serverErrors, setServerErrors] = useState({});
     const [clientErrors, setClientErrors] = useState({});
     const errors = {};
+    const sererrors = {};
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -88,7 +89,10 @@ function Register() {
                 navigate("/login");
             }
             if (!res?.success && res?.statusCode >= 400) {
-                setServerErrors(res.errors);
+                res.error.map((ele) => {
+                    sererrors[ele.path] = ele.msg;
+                });
+                setServerErrors(sererrors);
                 console.log("server errors =>", res.errors);
             }
         } else {
@@ -108,6 +112,7 @@ function Register() {
                 }
             />
             {clientErrors.username && <p>{clientErrors.username}</p>}
+            {serverErrors.username && <p>{serverErrors.username}</p>}
 
             <TextField
                 id="outlined-basic"
@@ -119,6 +124,7 @@ function Register() {
                 }
             />
             {clientErrors.email && <p>{clientErrors.email}</p>}
+            {serverErrors.email && <p>{serverErrors.email}</p>}
 
             <TextField
                 id="outlined-basic"
@@ -131,8 +137,9 @@ function Register() {
                 }
             />
             {clientErrors.password && <p>{clientErrors.password}</p>}
+            {serverErrors.password && <p>{serverErrors.password}</p>}
 
-            {/* <Button
+            <Button
                 component="label"
                 role={undefined}
                 variant="contained"
@@ -150,7 +157,8 @@ function Register() {
                         })
                     }
                 />
-            </Button> */}
+            </Button>
+            {serverErrors.profilePic && <p>{serverErrors.profilePic}</p>}
             <Button variant="contained" type="submit" disabled={isLoading}>
                 {isLoading ? "Registering ... " : "Register"}
             </Button>

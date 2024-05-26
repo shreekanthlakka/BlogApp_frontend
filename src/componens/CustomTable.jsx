@@ -38,8 +38,8 @@ function CustomTable({ posts }) {
                                     </Link>
                                 </TableCell>
 
-                                <TableCell>{row.authorId.username}</TableCell>
-                                <TableCell>{row.authorId.email}</TableCell>
+                                <TableCell>{row.authorId?.username}</TableCell>
+                                <TableCell>{row.authorId?.email}</TableCell>
                                 <TableCell>
                                     <Button
                                         variant="contained"
