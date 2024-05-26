@@ -25,7 +25,7 @@ const registerApi = async (formData) => {
         fd.append("username", formData.username);
         fd.append("email", formData.email);
         fd.append("password", formData.password);
-        fd.append("profilePic", formData.profilePic);
+        // fd.append("profilePic", formData.profilePic);
 
         const res = await fetch(`${URI}/users/register`, {
             method: "POST",
