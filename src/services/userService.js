@@ -1,5 +1,5 @@
-export const URI = "http://localhost:5000/api/v1";
-// export const URI = "https://blogapp-backend-ko6y.onrender.com/api/v1";
+// export const URI = "http://localhost:5000/api/v1";
+export const URI = "https://blogapp-backend-ko6y.onrender.com/api/v1";
 
 const loginApi = async (formData) => {
     try {
