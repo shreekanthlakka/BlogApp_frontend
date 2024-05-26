@@ -21,16 +21,19 @@ const loginApi = async (formData) => {
 
 const registerApi = async (formData) => {
     try {
-        const fd = new FormData();
-        fd.append("username", formData.username);
-        fd.append("email", formData.email);
-        fd.append("password", formData.password);
+        // const fd = new FormData();
+        // fd.append("username", formData.username);
+        // fd.append("email", formData.email);
+        // fd.append("password", formData.password);
         // fd.append("profilePic", formData.profilePic);
 
         const res = await fetch(`${URI}/users/register`, {
             method: "POST",
             credentials: "include",
-            body: fd,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
         });
         const data = await res.json();
         return data;

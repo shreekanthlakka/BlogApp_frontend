@@ -131,7 +131,7 @@ function Register() {
             />
             {clientErrors.password && <p>{clientErrors.password}</p>}
 
-            <Button
+            {/* <Button
                 component="label"
                 role={undefined}
                 variant="contained"
@@ -149,7 +149,7 @@ function Register() {
                         })
                     }
                 />
-            </Button>
+            </Button> */}
             <Button variant="contained" type="submit" disabled={isLoading}>
                 {isLoading ? "Registering ... " : "Register"}
             </Button>
