@@ -1,5 +1,5 @@
-// export const URI = "http://localhost:5000/api/v1";
-export const URI = "https://blogapp-backend-ko6y.onrender.com/api/v1";
+export const URI = "http://localhost:5000/api/v1";
+// export const URI = "https://blogapp-backend-ko6y.onrender.com/api/v1";
 
 const loginApi = async (formData) => {
     try {
@@ -27,6 +27,7 @@ const registerApi = async (formData) => {
         // fd.append("password", formData.password);
         // fd.append("profilePic", formData.profilePic);
 
+        console.log("IN REGISTER API", formData);
         const res = await fetch(`${URI}/users/register`, {
             method: "POST",
             credentials: "include",

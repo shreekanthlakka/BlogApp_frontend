@@ -122,6 +122,7 @@ function Register() {
 
             <TextField
                 id="outlined-basic"
+                type="password"
                 label="password"
                 variant="outlined"
                 value={formData.password}
